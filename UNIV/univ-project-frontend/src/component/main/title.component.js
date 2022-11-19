@@ -60,6 +60,24 @@ border-radius: 50px;
  padding: 0 10px;
  display: inline;
  box-sizing: border-box;
+ position: relative;
+ .button-icon {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: -10px;
+ }
+ `
+ const ButtonName = styled.p`
+ display: inline;
+ padding: 0 0 0 50px;
+ font-family: 'Rajdhani';
+ font-style: normal;
+ font-weight: 600;
+ font-size: 20px;
+ line-height: 26px;
+ text-align: center;
+ color: #FFFFFF;
  `
 
 
@@ -71,8 +89,8 @@ export default class TitleComponent extends React.Component {
                 <ButtonContainer>
                     <Button>LET`S EXPLORE</Button>
                     <HowItWorksButton>
-                    <Icon icon="fa-regular:play-circle" color="#a3c7d6" width="35" vertical-align= "middle"/>
-                    How it works?
+                    <Icon className="button-icon"icon="fa-regular:play-circle" color="#a3c7d6" width="35"/>
+                    <ButtonName>How it works?</ButtonName>
                     </HowItWorksButton>
                 </ButtonContainer>
                 <ButtonContainer>
