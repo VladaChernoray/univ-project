@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const SignInContainer = styled.nav`
   .nav-item {
@@ -38,16 +38,22 @@ border-radius: 50px;
 `
 
 export class SignInComponent extends React.Component{
+
+  nextPath(path) {
+    this.props.history.push(path);
+  }
     render() {
         return (
             <SignInContainer>
                 <nav className= 'navbar'>
                     <ul>
                         <li className= 'nav-item'>
-                            <Link to= '/' className='nav-link'> Sign in</Link>
+                            <Link  to={`/sign_up/`} className='nav-link'> Sign in</Link>
                         </li>
                         <li className= 'nav-item'>
+                          <Link to={`/sign_up/`}>
                           <SignUpButton className='nav-links'>Sign up</SignUpButton>
+                          </Link>
                         </li>
                     </ul>
                 </nav>

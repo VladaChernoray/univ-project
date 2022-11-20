@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderComponent from "../component/header/header.component";
 import styled from 'styled-components'
-import Register, { RegisterPage } from "../component/registration.component";
+import RegisterComponent from "../component/registration.component";
 
 const Container = styled.div`
 background-color: #190837;
@@ -15,7 +15,7 @@ export default class SignUpRoute extends React.Component {
         return(
             <Container>
                 <HeaderComponent/>
-                <Register/>
+                <RegisterComponent/>
             </Container>
         )
     }

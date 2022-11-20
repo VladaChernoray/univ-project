@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderComponent from "../component/header/header.component";
 import styled from 'styled-components'
-import MainComponent from "../component/main/main.component";
+import MainComponent from "../component/main.component";
 
 const MainContainer = styled.div`
 background-color: #190837;

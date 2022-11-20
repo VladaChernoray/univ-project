@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input, FormGroup, FormFeedback, Button } from 'reactstrap';
 import { isEmail } from 'validator';
 import styled from 'styled-components';
-import Image from '../component/registration.jpg';
-import MetaMask from '../component/MetaMask.svg'
+import Image from '../assets/images/img2.jpg'
 
-
-export default class Register extends Component {
+export default class RegisterComponent extends Component {
 
     state = {
         isChecked: false,
