@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 import { Icon } from '@iconify/react';
 import Logo from '../assets/images/img1.png'
+import { Link } from "react-router-dom";
 
 export default class MainComponent extends React.Component {
     render() {
@@ -18,7 +19,9 @@ export default class MainComponent extends React.Component {
                             </HowItWorksButton>
                         </ButtonContainer>
                         <ButtonContainer>
+                            <Link to={`/download`}>
                             <DownloadButton>DOWNLOAD</DownloadButton>
+                            </Link>
                         </ButtonContainer>
                     </TitleContainer>
                     <PictureContainer>

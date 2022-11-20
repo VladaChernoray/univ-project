@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, FormGroup, FormFeedback, Button } from 'reactstrap';
 import { isEmail } from 'validator';
 import styled from 'styled-components';
-import Image from '../assets/images/img2.jpg'
+import Image from '../assets/images/img5.png'
 
 export default class RegisterComponent extends Component {
 
@@ -85,8 +85,8 @@ export default class RegisterComponent extends Component {
         const { data, errors } = this.state;
         return (
             <Container>
-                 <Picture src={Image} alt="React Registration" />
-                 <Form onSubmit={this.handleSubmit}>
+                 <Picture className="item"src={Image} alt="React Registration" />
+                 <Form className="item" onSubmit={this.handleSubmit}>
                     <FormTitle>Start now</FormTitle>
                     <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game</FormDescription>
                 <FormGroup>
@@ -131,13 +131,14 @@ export default class RegisterComponent extends Component {
 
 const Container = styled.div`
 display: flex;
-justify-content: space-around;
+justify-content: center;
 vertical-align: center;
 align-items: center;
-
+.item {
+    margin: 0 25px;
+}
 Form {
     width: 480px;
-
 }
 Input {
     border: 2px solid #A3C7D6;
@@ -209,8 +210,8 @@ const CheckboxText = styled.p`
 padding: 0 0 0 20px;`
 const Picture = styled.img`
 width: 450px;
-height: 450px;
-border-radius: 20px;
+height: 400px;
+border-radius: 30px;
 `
 const FormTitle = styled.p`
 font-family: 'Rajdhani';

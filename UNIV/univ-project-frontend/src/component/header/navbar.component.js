@@ -36,7 +36,7 @@ export class NavbarComponent extends React.Component{
                             <Link to= '/' className='nav-links link-hover'>GamePlay</Link>
                         </li>
                         <li className= 'nav-item'>
-                            <Link to= '/' className='nav-links link-hover'>NFT</Link>
+                            <Link to= {`/nft`} className='nav-links link-hover'>NFT</Link>
                         </li>
                     </ul>
                 </nav>

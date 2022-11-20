@@ -1,0 +1,45 @@
+[
+    {
+        "owner" : "All",
+        "token" : [
+            {
+              "name": "The Fool",
+              "picture": "../src/assets/images/img_nft_1.jpg"
+            },
+            {
+                "name": "Neon Genesis",
+                "picture": "/"
+            },
+            {
+                "name": "Demon Slayer",
+                "picture": "/"
+            }
+        ]
+    },
+    {
+        "owner" : "Owner1",
+        "token" : [
+            {
+              "name": "The Fool",
+              "picture": "/"
+            },
+            {
+                "name": "Neon Genesis",
+                "picture": "/"
+            }
+        ]
+    },
+    {
+        "owner" : "Owner2",
+        "token" : [
+            {
+              "name": "Neon Genesis",
+              "picture": "/"
+            },
+            {
+                "name": "Demon Slayer",
+                "picture": "/"
+            }
+        ]
+    }
+]

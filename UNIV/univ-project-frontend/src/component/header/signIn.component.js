@@ -27,6 +27,7 @@ font-weight: 400;
 font-size: 20px;
 line-height: 26px;
 text-align: center;
+text-decoration: none;
 
 box-sizing: border-box;
 background: rgba(0,0,0,0); 
@@ -39,19 +40,16 @@ border-radius: 50px;
 
 export class SignInComponent extends React.Component{
 
-  nextPath(path) {
-    this.props.history.push(path);
-  }
     render() {
         return (
             <SignInContainer>
                 <nav className= 'navbar'>
                     <ul>
                         <li className= 'nav-item'>
-                            <Link  to={`/sign_up/`} className='nav-link'> Sign in</Link>
+                            <Link className='nav-link'> Sign in</Link>
                         </li>
                         <li className= 'nav-item'>
-                          <Link to={`/sign_up/`}>
+                          <Link to={`/sign_up`}>
                           <SignUpButton className='nav-links'>Sign up</SignUpButton>
                           </Link>
                         </li>

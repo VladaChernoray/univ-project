@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { LanguageComponent } from "./language.component";
 
 const LogoContainer = styled.nav`
 text-align: center;
@@ -11,18 +10,17 @@ font-weight: 700;
 font-size: 32px;
 line-height: 41px;
 text-align: center;
-text-decoration: underline;
-}
-
 color: #A3C7D6;
-
+text-decoration: none;
+`
+const Container = styled.div`
 `
 export class LogoComponent extends React.Component{
     render() {
         return(
-            <>
+        <Container>
             <Link to={`/main`}><LogoContainer>CuberCube</LogoContainer></Link>
-            </>
+        </Container>
         )
     }
 
