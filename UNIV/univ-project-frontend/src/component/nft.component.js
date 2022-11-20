@@ -16,14 +16,17 @@ export default class NFTComponent extends React.Component {
                 </Form>
                 <CardContainer>
                     {items.map(({owner, token}) => 
-                    (<Card>
-                        <h1>{owner}</h1>
+                    (<>
                         {token.map(({name, picture}) =>
-                        <>
-                        <h1>{name}</h1>
-                        <img src={$`{picture}`}/>
-                        </>)}
-                    </Card>))}
+                        <Card >
+                         <CardImage src={`${picture}`}/>
+                         <CardContent>
+                            <CardName>{name}</CardName>
+                         </CardContent>
+                         <CardIcon></CardIcon>
+                        </Card>
+                        )}
+                    </>))}
                 </CardContainer>
             </Container>
         )
@@ -35,7 +38,7 @@ font-family: 'Rajdhani';
 font-style: normal;
 font-weight: 600;
 font-size: 48px;
-line-height: 82px;
+line-height: 48px;
 text-align: center;
 color: #A3C7D6;
 display: block;
@@ -46,6 +49,7 @@ Form {
     justify-content: center;
     vertical-align: center;
     align-items: center;
+    padding: 10px 0;
 }
 Input {
     border: 2px solid #A3C7D6;
@@ -75,6 +79,57 @@ Input:valid{
 }
 `
 const CardContainer = styled.div`
+text-align: center;
+}
 `
 const Card = styled.div`
+display: inline-block;
+margin: 10px;
+width: 240px;
+height: 350px;
+padding: 0 10px 10px;
 `
+const CardImage = styled.img`
+display: block;
+object-fit: cover;
+width: 230px;
+height: 350px;
+border-radius: 20px;
+position: absolute;
+`
+const CardContent = styled.div`
+width: 230px;
+height: 70px;
+background-color: white;
+position: relative;
+top: 280px;
+background: rgba(163, 199, 214, 0.5);
+border-radius: 20px;
+`
+
+const CardName = styled.p`
+position: relative;
+padding: 15px 12px;
+font-family: 'Rajdhani';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 32px;
+color: #FFFFFF;
+text-align: left;
+`
+
+const CardIcon = styled.button`
+top: -63px;
+left: 80px;
+width: 40px;
+height: 40px;
+background: rgba(217, 217, 217, 0.3);
+position: relative;
+border: none;
+border-radius: 50%;
+background-size: 37px;
+background-repeat: no-repeat;
+background-position: center 3px;
+filter: #A3C7D6;
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ei-heart.svg/768px-Ei-heart.svg.png")`

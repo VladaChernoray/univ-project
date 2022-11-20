@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, FormGroup, FormFeedback, Button } from 'reactstrap';
+import { Form, Input, FormGroup, FormFeedback } from 'reactstrap';
 import { isEmail } from 'validator';
 import styled from 'styled-components';
 import Image from '../assets/images/img5.png'
