@@ -88,7 +88,7 @@ export default class RegisterComponent extends Component {
                  <Picture className="item"src={Image} alt="React Registration" />
                  <Form className="item" onSubmit={this.handleSubmit}>
                     <FormTitle>Start now</FormTitle>
-                    <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game</FormDescription>
+                    <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game.</FormDescription>
                 <FormGroup>
                     <Input id="nickName" value={data.firstName} invalid={errors.firstName ? true : false} name="firstName" placeholder="Nickname" onChange={this.handleChange} />
                     <FormFeedback>{errors.firstName}</FormFeedback>

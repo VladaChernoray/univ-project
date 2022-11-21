@@ -17,14 +17,14 @@ export default class NFTComponent extends React.Component {
                 <CardContainer>
                     {items.map(({owner, token}) => 
                     (<>
-                        {token.map(({name, picture}) =>
-                        <Card >
+                        {token.map(({name, picture}) =>  
+                        <Card>
                          <CardImage src={`${picture}`}/>
                          <CardContent>
                             <CardName>{name}</CardName>
                          </CardContent>
                          <CardIcon></CardIcon>
-                        </Card>
+                        </Card>   
                         )}
                     </>))}
                 </CardContainer>
@@ -80,7 +80,6 @@ Input:valid{
 `
 const CardContainer = styled.div`
 text-align: center;
-}
 `
 const Card = styled.div`
 display: inline-block;
