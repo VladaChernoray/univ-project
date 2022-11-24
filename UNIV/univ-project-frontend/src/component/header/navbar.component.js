@@ -2,6 +2,35 @@ import React from "react";
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
+
+export class NavbarComponent extends React.Component{
+
+    render() {
+        return (
+            <NavbarContainer>
+                <nav className= 'navbar'>
+                    <ul>
+                        <li className= 'nav-item'>
+                            <Link to= {`/nft`} className='nav-link'>NFT</Link>
+                        </li>
+                        <li className= 'nav-item'>
+                            <Link className='nav-link'> Sign in</Link>
+                        </li>
+                        <li className= 'nav-item'>
+                          <Link to={`/sign_up`}>
+                          <SignUpButton>Sign up</SignUpButton>
+                          </Link>
+                        </li>
+                        <li className='nav-item'>
+                          <LanguageButton>ENG</LanguageButton>
+                        </li>
+                    </ul>
+                </nav>
+            </NavbarContainer>
+        )
+    }
+}
+
 const NavbarContainer = styled.nav`
   .nav-item {
     display: inline;
@@ -55,31 +84,3 @@ font-size: 18px;
 line-height: 23px;
 text-align: center;
 `
-
-export class NavbarComponent extends React.Component{
-
-    render() {
-        return (
-            <NavbarContainer>
-                <nav className= 'navbar'>
-                    <ul>
-                        <li className= 'nav-item'>
-                            <Link to= {`/nft`} className='nav-link'>NFT</Link>
-                        </li>
-                        <li className= 'nav-item'>
-                            <Link className='nav-link'> Sign in</Link>
-                        </li>
-                        <li className= 'nav-item'>
-                          <Link to={`/sign_up`}>
-                          <SignUpButton>Sign up</SignUpButton>
-                          </Link>
-                        </li>
-                        <li className='nav-item'>
-                          <LanguageButton>ENG</LanguageButton>
-                        </li>
-                    </ul>
-                </nav>
-            </NavbarContainer>
-        )
-    }
-}

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Input, FormGroup, FormFeedback, Button } from 'reactstrap';
+import { Form, Input, FormGroup } from 'reactstrap';
 import items from "../assets/data/data.json"
 
 

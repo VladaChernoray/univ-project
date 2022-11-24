@@ -11,7 +11,7 @@ export default class MainComponent extends React.Component {
             <Container>
                 <MainContainer>
                     <TitleContainer>
-                        <Title>Discover, Play, Collect and Sell Extraordinary NFT’s</Title>
+                        <Title>Discover, Play, Collect and Sell Extraordinary NFTs</Title>
                         <ButtonContainer>
                             <Button>ABOUT GAME</Button>
                             <HowItWorksButton>
