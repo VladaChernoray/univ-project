@@ -2,24 +2,56 @@ import React from "react";
 import styled from "styled-components";
 import { Form, Input, FormGroup } from 'reactstrap';
 import items from "../assets/data/data.json"
+import nft from "../assets/data/nft.json"
 
-
-export default class NFTComponent extends React.Component {
-    render() {
+function NFTComponent() {
+    const [searchTerm, setSearchTerm] = React.useState("");
+    const handleChange = event => {
+      setSearchTerm(event.target.value);
+    };
+  
+    const results = !searchTerm
+      ? nft
+      : nft.filter(person =>
+          person.owner.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+        );
+  
         return(
             <Container>
                 <Title>Explore your NFT collection</Title>
                 <Form>
                     <FormGroup>
-                        <Input id="NFTname" name="firstName" placeholder="Address of the owner" onChange={this.handleChange} />
+                        <Input id="NFTname" name="firstName" placeholder="Address of the owner" value={searchTerm}
+        onChange={handleChange} />
                     </FormGroup>
                 </Form>
                 <CardContainer>
-                    {items.map(({owner, token}) => 
+                    {results.map(({owner, token}) => 
                     (<>
-                        {token.map(({name, picture}) =>  
+                        {token.map(({name, coord}) =>  
                         <Card>
-                         <CardImage src={`${picture}`}/>
+                            <CardImage
+                            style={{
+                                backgroundColor: "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16)),
+                            }}>
+                            <CardTable>
+                                {coord.slice(1, coord.length).map((item) => {
+                                    return (
+                                        <tr>
+                                            {item.map((element) => {
+                                                return(
+                                                    <td style={{
+                                                        backgroundColor: element,
+                                                        width: "25px",
+                                                        height: "25px"
+                                                    }}></td>
+                                                )
+                                            })}
+                                        </tr>
+                                        );
+                                })}
+                            </CardTable>
+                            </CardImage>
                          <CardContent>
                             <CardName>{name}</CardName>
                          </CardContent>
@@ -31,7 +63,7 @@ export default class NFTComponent extends React.Component {
             </Container>
         )
     }
-}   
+export default NFTComponent;
 
 const Title = styled.p`
 font-family: 'Rajdhani';
@@ -88,13 +120,18 @@ width: 240px;
 height: 350px;
 padding: 0 10px 10px;
 `
-const CardImage = styled.img`
-display: block;
-object-fit: cover;
+const CardImage = styled.div`
+display: flex;
 width: 230px;
 height: 350px;
+justify-content: center;
+align-items: center;
 border-radius: 20px;
 position: absolute;
+`
+
+const CardTable = styled.div`
+padding: 0 0 55px 0;
 `
 const CardContent = styled.div`
 width: 230px;
