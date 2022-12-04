@@ -14,8 +14,20 @@ function NFTComponent() {
       ? nft
       : nft.filter(person =>
           person.owner.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-        );
-  
+    );
+    function extractRGB(color){
+        const r = (color >> 5)
+        const g = ((color >> 2) & 7)
+        const b = (color & 3)
+        
+        const red = Math.floor(((r) * 255) / 7);
+        const green = Math.floor(((g) * 255) / 7);
+        const blue = Math.floor(((b) * 255) / 3);
+         return ("rgb(" + (red) + "," + (green) + "," + blue + ")");
+       }
+      
+
+
         return(
             <Container>
                 <Title>Explore your NFT collection</Title>
@@ -35,13 +47,13 @@ function NFTComponent() {
                                 backgroundColor: "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16)),
                             }}>
                             <CardTable>
-                                {coord.slice(1, coord.length).map((item) => {
+                                {coord.slice(0, coord.length).map((item) => {
                                     return (
                                         <tr>
                                             {item.map((element) => {
                                                 return(
                                                     <td style={{
-                                                        backgroundColor: element,
+                                                        backgroundColor: extractRGB(element),
                                                         width: "25px",
                                                         height: "25px"
                                                     }}></td>
@@ -131,7 +143,7 @@ position: absolute;
 `
 
 const CardTable = styled.div`
-padding: 0 0 55px 0;
+padding-bottom: 35px;
 `
 const CardContent = styled.div`
 width: 230px;
