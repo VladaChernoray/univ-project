@@ -1,81 +1,95 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Input, FormGroup } from 'reactstrap';
-import items from "../assets/data/data.json"
-import nft from "../assets/data/nft.json"
+import nft from "../assets/data/nft.json";
+import {ethers} from 'ethers';
+import { SmartContract } from "../blockchain/setup";
 
 function NFTComponent() {
     const [searchTerm, setSearchTerm] = React.useState("");
-    const handleChange = event => {
-      setSearchTerm(event.target.value);
+    const [NFT, setNFT] = React.useState(null);
+
+    const handleChange = async event => {
+        const searchStr = event.target.value;
+        setSearchTerm(searchStr);
+
+        if (ethers.utils.isAddress(searchStr)) {
+            const tokenId = (await SmartContract.tokensOf(searchStr))[0].toNumber();
+            const nft = (await SmartContract.tokenData(tokenId));
+            setNFT(nft);
+        }
     };
-  
+
     const results = !searchTerm
       ? nft
       : nft.filter(person =>
           person.owner.toLowerCase().includes(searchTerm.toLocaleLowerCase())
     );
 
+    function extractRGB(color){
+        const r = (color >> 5)
+        const g = ((color >> 2) & 7)
+        const b = (color & 3)
 
-function extractRGB(color){
-    const r = (color >> 5)
-    const g = ((color >> 2) & 7)
-    const b = (color & 3)
-        
-    const red = Math.floor(((r) * 255) / 7);
-    const green = Math.floor(((g) * 255) / 7);
-    const blue = Math.floor(((b) * 255) / 3);
-    return ("rgb(" + (red) + "," + (green) + "," + blue + ")");
-}
-      
-        return(
-            <Container>
-                <Title>Explore your NFT collection</Title>
-                <Form>
-                    <FormGroup>
-                        <Input id="NFTname" name="firstName" placeholder="Address of the owner" value={searchTerm}
-        onChange={handleChange} />
-                    </FormGroup>
-                </Form>
-                <CardContainer>
-                    {results.map(({owner, token}) => 
-                    (<>
-                        {token.map(({name, coord}) =>  
-                        <Card>
-                            <CardImage
-                            style={{
-                                backgroundColor: "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16)),
-                            }}>
-                            <CardTable>
-                                {coord.slice(0, coord.length).map((item) => {
-                                    return (
-                                        <tr>
-                                            {item.map((element) => {
-                                                return(
-                                                    <td style={{
-                                                        backgroundColor: extractRGB(element),
-                                                        width: "25px",
-                                                        height: "25px"
-                                                    }}></td>
-                                                )
-                                            })}
-                                        </tr>
-                                        );
-                                })}
-                            </CardTable>
-                            </CardImage>
-                         <CardContent>
-                            <CardName>{name}</CardName>
-                         </CardContent>
-                         <CardIcon>
-                         </CardIcon>
-                        </Card>   
-                        )}
-                    </>))}
-                </CardContainer>
-            </Container>
-        )
+        const red = Math.floor(((r) * 255) / 7);
+        const green = Math.floor(((g) * 255) / 7);
+        const blue = Math.floor(((b) * 255) / 3);
+        return ("rgb(" + (red) + "," + (green) + "," + blue + ")");
     }
+
+    return(
+        <Container>
+            <Title>Explore your NFT collection</Title>
+            <Form>
+                <FormGroup>
+                    <Input
+                        id="NFTname"
+                        name="firstName"
+                        placeholder="Address of the owner"
+                        value={searchTerm}
+                        onChange={handleChange}
+                    />
+                </FormGroup>
+            </Form>
+            <CardContainer>
+                {results.map(({owner, token}) =>
+                (<>
+                    {token.map(({name, coord}, idx) =>
+                    <Card key={idx}>
+                        <CardImage
+                        style={{
+                            backgroundColor: "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16)),
+                        }}>
+                        <CardTable>
+                            {coord.slice(0, coord.length).map((item) => {
+                                return (
+                                    <tr>
+                                        {item.map((element) => {
+                                            return(
+                                                <td style={{
+                                                    backgroundColor: extractRGB(element),
+                                                    width: "25px",
+                                                    height: "25px"
+                                                }}></td>
+                                            )
+                                        })}
+                                    </tr>
+                                    );
+                            })}
+                        </CardTable>
+                        </CardImage>
+                        <CardContent>
+                            <CardName>{name}</CardName>
+                        </CardContent>
+                        <CardIcon>
+                        </CardIcon>
+                    </Card>
+                    )}
+                </>))}
+            </CardContainer>
+        </Container>
+    )
+}
 export default NFTComponent;
 
 const Title = styled.p`
@@ -99,7 +113,7 @@ Form {
 Input {
     border: 2px solid #A3C7D6;
     border-radius: 50px;
-    background: rgba(0,0,0,0); 
+    background: rgba(0,0,0,0);
     width: 1000px;
     height: 46px;
     margin-bottom: 10px;
@@ -119,8 +133,8 @@ Input:valid{
     font-size: 24px;
     line-height: 31px;
     color: #FFFFFF;
-    background: rgba(0,0,0,0); 
-    padding: 0 0 0 25px; 
+    background: rgba(0,0,0,0);
+    padding: 0 0 0 25px;
 }
 `
 const CardContainer = styled.div`
