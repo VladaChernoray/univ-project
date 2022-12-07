@@ -15,19 +15,19 @@ function NFTComponent() {
       : nft.filter(person =>
           person.owner.toLowerCase().includes(searchTerm.toLocaleLowerCase())
     );
-    function extractRGB(color){
-        const r = (color >> 5)
-        const g = ((color >> 2) & 7)
-        const b = (color & 3)
+
+
+function extractRGB(color){
+    const r = (color >> 5)
+    const g = ((color >> 2) & 7)
+    const b = (color & 3)
         
-        const red = Math.floor(((r) * 255) / 7);
-        const green = Math.floor(((g) * 255) / 7);
-        const blue = Math.floor(((b) * 255) / 3);
-         return ("rgb(" + (red) + "," + (green) + "," + blue + ")");
-       }
+    const red = Math.floor(((r) * 255) / 7);
+    const green = Math.floor(((g) * 255) / 7);
+    const blue = Math.floor(((b) * 255) / 3);
+    return ("rgb(" + (red) + "," + (green) + "," + blue + ")");
+}
       
-
-
         return(
             <Container>
                 <Title>Explore your NFT collection</Title>
@@ -67,7 +67,8 @@ function NFTComponent() {
                          <CardContent>
                             <CardName>{name}</CardName>
                          </CardContent>
-                         <CardIcon></CardIcon>
+                         <CardIcon>
+                         </CardIcon>
                         </Card>   
                         )}
                     </>))}

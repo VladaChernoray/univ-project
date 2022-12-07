@@ -85,7 +85,6 @@ export default class RegisterComponent extends Component {
         const { data, errors } = this.state;
         return (
             <Container>
-                 <Picture className="item"src={Image} alt="React Registration" />
                  <Form className="item" onSubmit={this.handleSubmit}>
                     <FormTitle>Start now</FormTitle>
                     <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game.</FormDescription>
@@ -217,7 +216,7 @@ const FormTitle = styled.p`
 font-family: 'Rajdhani';
 font-style: normal;
 font-weight: 700;
-font-size: 66px;
+font-size: 64px;
 line-height: 64px;
 text-align: center;
 color: #A3C7D6;
