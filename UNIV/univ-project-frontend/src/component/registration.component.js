@@ -26,6 +26,7 @@ export default class RegisterComponent extends Component {
         data: {
             login: '',
             password: '',
+            address: '',
         },
     });
 
@@ -44,7 +45,7 @@ export default class RegisterComponent extends Component {
 
         e.preventDefault();
         fetch('http://192.168.191.43:18080/register', {
-            body: "{" + '"login"' + ":" + '"' + data.login + '"' + ", " + '"password"' + ":" + '"' + data.password  + '"' + "}",
+            body: "{" + '"login"' + ":" + '"' + data.login + '"' + ", " + '"password"' + ":" + '"' + data.password  + '"' + '"address"' + ":" + '"' + data.address  +  "}",
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
@@ -68,6 +69,9 @@ export default class RegisterComponent extends Component {
                     <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game.</FormDescription>
                 <FormGroup>
                     <Input id="nickName" value={data.login} type="text" name="login" placeholder="Nickname" onChange={this.handleChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Input id="address" value={data.address} type="address" name="address" placeholder="Address" onChange={this.handleChange} />
                 </FormGroup>
                 <FormGroup>
                     <Input id="password" value={data.password} type="password" name="password" placeholder="Password" onChange={this.handleChange} />
@@ -103,6 +107,7 @@ align-items: center;
     margin: 0 25px;
 }
 Form {
+    padding: 10px 0 0;
     width: 480px;
 }
 Input {
@@ -194,6 +199,7 @@ font-weight: 300;
 font-size: 21px;
 line-height: 31px;
 color: #FFFFFF;
+padding: 10px 0;
 `
 const ButtonMetaMask = styled.button`
 width: 71px;

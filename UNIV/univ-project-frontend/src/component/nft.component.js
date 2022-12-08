@@ -1,30 +1,44 @@
+
 import React from "react";
 import styled from "styled-components";
 import { Form, Input, FormGroup } from 'reactstrap';
-import nft from "../assets/data/nft.json";
 import {ethers} from 'ethers';
 import { SmartContract } from "../blockchain/setup";
 
+const fetchAllNFTs = async () => {
+    const lastTokenId = (await SmartContract.lastTokenID()).toNumber();
+    const nfts = [];
+    for (let tokenId = 0; tokenId < lastTokenId; tokenId++) {
+        nfts.push(await SmartContract.tokenData(tokenId));
+    }
+    console.log({nfts});
+    return nfts;
+}
+
 function NFTComponent() {
     const [searchTerm, setSearchTerm] = React.useState("");
-    const [NFT, setNFT] = React.useState(null);
+    const [NFTs, setNFTs] = React.useState([]);
 
     const handleChange = async event => {
         const searchStr = event.target.value;
         setSearchTerm(searchStr);
 
-        if (ethers.utils.isAddress(searchStr)) {
-            const tokenId = (await SmartContract.tokensOf(searchStr))[0].toNumber();
-            const nft = (await SmartContract.tokenData(tokenId));
-            setNFT(nft);
+        if (searchStr === '') {
+            setNFTs(await fetchAllNFTs());
+        } else if (ethers.utils.isAddress(searchStr)) {
+            const tokenIds = (await SmartContract.tokensOf(searchStr)).map(bnTokenId => bnTokenId.toNumber());
+            const nfts = await Promise.all(tokenIds.map(async tokenId => await SmartContract.tokenData(tokenId)));
+            setNFTs(nfts);
         }
     };
 
-    const results = !searchTerm
-      ? nft
-      : nft.filter(person =>
-          person.owner.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-    );
+    React.useEffect(() => {
+        const loadNFTs = async () => {
+            setNFTs(await fetchAllNFTs());
+        }
+        loadNFTs();
+    }, []);
+
 
     function extractRGB(color){
         const r = (color >> 5)
@@ -52,38 +66,35 @@ function NFTComponent() {
                 </FormGroup>
             </Form>
             <CardContainer>
-                {results.map(({owner, token}) =>
-                (<>
-                    {token.map(({name, coord}, idx) =>
-                    <Card key={idx}>
-                        <CardImage
-                        style={{
+                {NFTs.slice(0, NFTs.length).map((e) => 
+                <Card>
+                    <CardImage
+                    style={{
                             backgroundColor: "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16)),
                         }}>
-                        <CardTable>
-                            {coord.slice(0, coord.length).map((item) => {
-                                return (
-                                    <tr>
-                                        {item.map((element) => {
-                                            return(
-                                                <td style={{
-                                                    backgroundColor: extractRGB(element),
-                                                    width: "25px",
-                                                    height: "25px"
-                                                }}></td>
-                                            )
-                                        })}
-                                    </tr>
-                                    );
-                            })}
-                        </CardTable>
-                        </CardImage>
-                        <CardContent>
-                            <CardName>{name}</CardName>
-                         </CardContent>
-                        </Card>   
-                        )}
-                    </>))}
+                            <CardTable>
+                  {e.slice(0, e.length).map((item) => {
+                      return (
+                          <tr>
+                              {item.map((element) => {
+                                  return(
+                                      <td style={{
+                                          backgroundColor: extractRGB(element),
+                                          width: "24px",
+                                          height: "24px"
+                                      }}></td>
+                                  )
+                              })}
+                          </tr>
+                          );
+                  })}
+              </CardTable>
+
+                    </CardImage>
+
+                </Card>
+                )
+                }
                 </CardContainer>
             </Container>
         )
@@ -102,17 +113,15 @@ display: block;
 `
 const Container = styled.div`
 Form {
-    display: flex;
-    justify-content: center;
-    vertical-align: center;
-    align-items: center;
     padding: 10px 0;
+    text-align: center;
 }
 Input {
+    display: inline-block;
     border: 2px solid #A3C7D6;
     border-radius: 50px;
     background: rgba(0,0,0,0);
-    width: 1000px;
+    width: 85%;
     height: 46px;
     margin-bottom: 10px;
 }
@@ -141,14 +150,14 @@ text-align: center;
 const Card = styled.div`
 display: inline-block;
 margin: 10px;
-width: 240px;
-height: 350px;
+width: 230px;
+height: 230px;
 padding: 0 10px 10px;
 `
 const CardImage = styled.div`
 display: flex;
 width: 230px;
-height: 350px;
+height: 230px;
 justify-content: center;
 align-items: center;
 border-radius: 20px;
@@ -156,7 +165,6 @@ position: absolute;
 `
 
 const CardTable = styled.div`
-padding-bottom: 35px;
 `
 const CardContent = styled.div`
 width: 230px;

@@ -14,9 +14,6 @@ export class NavbarComponent extends React.Component{
                             <Link to= {`/nft`} className='nav-link'>NFT</Link>
                         </li>
                         <li className= 'nav-item'>
-                            <Link className='nav-link'> Sign in</Link>
-                        </li>
-                        <li className= 'nav-item'>
                           <Link to={`/sign_up`}>
                           <SignUpButton>Sign up</SignUpButton>
                           </Link>
