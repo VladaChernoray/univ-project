@@ -5,20 +5,38 @@ import nft from "../assets/data/nft.json";
 import {ethers} from 'ethers';
 import { SmartContract } from "../blockchain/setup";
 
+const fetchAllNFTs = async () => {
+    const lastTokenId = (await SmartContract.lastTokenID()).toNumber();
+    const nfts = [];
+    for (let tokenId = 0; tokenId < lastTokenId; tokenId++) {
+        nfts.push(await SmartContract.tokenData(tokenId));
+    }
+    return nfts;
+}
+
 function NFTComponent() {
     const [searchTerm, setSearchTerm] = React.useState("");
-    const [NFT, setNFT] = React.useState(null);
+    const [NFTs, setNFTs] = React.useState([]);
 
     const handleChange = async event => {
         const searchStr = event.target.value;
         setSearchTerm(searchStr);
 
-        if (ethers.utils.isAddress(searchStr)) {
-            const tokenId = (await SmartContract.tokensOf(searchStr))[0].toNumber();
-            const nft = (await SmartContract.tokenData(tokenId));
-            setNFT(nft);
+        if (searchStr === '') {
+            setNFTs(await fetchAllNFTs());
+        } else if (ethers.utils.isAddress(searchStr)) {
+            const tokenIds = (await SmartContract.tokensOf(searchStr)).map(bnTokenId => bnTokenId.toNumber());
+            const nfts = await Promise.all(tokenIds.map(async tokenId => await SmartContract.tokenData(tokenId)));
+            setNFTs(nfts);
         }
     };
+
+    React.useEffect(() => {
+        const loadNFTs = async () => {
+            setNFTs(await fetchAllNFTs());
+        }
+        loadNFTs();
+    }, []);
 
     const results = !searchTerm
       ? nft
