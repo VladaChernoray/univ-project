@@ -13,12 +13,6 @@ export default class RegisterComponent extends Component {
       toggleCheckboxChange = () => {
         const { handleCheckboxChange, label } = this.props;
     
-        this.setState(({ isChecked }) => (
-          {
-            isChecked: !isChecked,
-          }
-        ));
-    
         handleCheckboxChange(label);
       }
     
@@ -30,12 +24,9 @@ export default class RegisterComponent extends Component {
 
     getInitialState = () => ({
         data: {
-            nickName: '',
-            email: '',
+            login: '',
             password: '',
-            confirmPassword: ''
         },
-        errors: {}
     });
 
     handleChange = (e) => {
@@ -44,67 +35,42 @@ export default class RegisterComponent extends Component {
                 ...this.state.data,
                 [e.target.name]: e.target.value
             },
-            errors: {
-                ...this.state.errors,
-                [e.target.name]: ''
-            }
         });
     }
 
-    validate = () => {
-        const { data } = this.state;
-        let errors = {};
-
-        if (data.nickName === '') errors.lastName = 'Nickname can not be blank.';
-        if (!isEmail(data.email)) errors.email = 'Email must be valid.';
-        if (data.email === '') errors.email = 'Email can not be blank.';
-        if (data.password === '') errors.password = 'Password must be valid.';
-        if (data.confirmPassword !== data.password) errors.confirmPassword = 'Passwords must match.';
-
-        return errors;
-    }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-
         const { data } = this.state;
 
-        const errors = this.validate();
-
-        if (Object.keys(errors).length === 0) {
-            console.log(data);
-            this.setState(this.getInitialState());
-        } else {
-            this.setState({ errors });
-        }
+        e.preventDefault();
+        fetch('http://192.168.191.43:18080/register', {
+            body: "{" + '"login"' + ":" + '"' + data.login + '"' + ", " + '"password"' + ":" + '"' + data.password  + '"' + "}",
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'cors',
+            redirect: 'follow',
+            referrer: 'no-referrer',
+          })
     }
 
     render() {
         const { label } = this.props;
         const { isChecked } = this.state;
-        const { data, errors } = this.state;
+        const { data } = this.state;
         return (
             <Container>
                  <Form className="item" onSubmit={this.handleSubmit}>
                     <FormTitle>Start now</FormTitle>
                     <FormDescription>Create a account in CuberCube and claim a free armor set  to start your game.</FormDescription>
                 <FormGroup>
-                    <Input id="nickName" value={data.firstName} invalid={errors.firstName ? true : false} name="firstName" placeholder="Nickname" onChange={this.handleChange} />
-                    <FormFeedback>{errors.firstName}</FormFeedback>
+                    <Input id="nickName" value={data.login} type="text" name="login" placeholder="Nickname" onChange={this.handleChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Input id="email" value={data.email} invalid={errors.email ? true : false} name="email" placeholder="Email" onChange={this.handleChange} />
-                    <FormFeedback>{errors.email}</FormFeedback>
-                </FormGroup>
-
-                <FormGroup>
-                    <Input id="password" value={data.password} type="password" name="password" invalid={errors.password ? true : false} placeholder="Password" onChange={this.handleChange} />
-                    <FormFeedback>{errors.password}</FormFeedback>
-                </FormGroup>
-
-                <FormGroup>
-                    <Input id="confirmPassword" value={data.confirmPassword} type="password" name="confirmPassword" invalid={errors.confirmPassword ? true : false} placeholder="Confirm Passward"onChange={this.handleChange} />
-                    <FormFeedback>{errors.confirmPassword}</FormFeedback>
+                    <Input id="password" value={data.password} type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                 </FormGroup>
                 <Checkbox>
                     <label>
@@ -120,7 +86,7 @@ export default class RegisterComponent extends Component {
                 </Checkbox>
                 <ButtonContainer>
                     <ButtonMetaMask></ButtonMetaMask>
-                    <ButtonCreate>CREATE A FREE ACCOUNT</ButtonCreate>
+                    <ButtonCreate type="submit" >CREATE A FREE ACCOUNT</ButtonCreate>
                 </ButtonContainer>
             </Form>
         </Container>
@@ -232,7 +198,6 @@ color: #FFFFFF;
 const ButtonMetaMask = styled.button`
 width: 71px;
 height: 45px;
-
 background: #A3C7D6;
 border: 1px solid #000000;
 border-radius: 50px;

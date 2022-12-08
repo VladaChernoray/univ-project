@@ -80,16 +80,14 @@ function NFTComponent() {
                         </CardImage>
                         <CardContent>
                             <CardName>{name}</CardName>
-                        </CardContent>
-                        <CardIcon>
-                        </CardIcon>
-                    </Card>
-                    )}
-                </>))}
-            </CardContainer>
-        </Container>
-    )
-}
+                         </CardContent>
+                        </Card>   
+                        )}
+                    </>))}
+                </CardContainer>
+            </Container>
+        )
+    }
 export default NFTComponent;
 
 const Title = styled.p`
